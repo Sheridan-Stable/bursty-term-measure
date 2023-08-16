@@ -1,6 +1,6 @@
 # A Statistical Hypothesis Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Keyword Extraction
 
-This repository contains computer code for reproducing the results described in the manuscript “The hypergeometric test performs comparably to TF-IDF on standard text analysis tasks”. ArXiv preprint link: TBA
+This repository contains computer code for reproducing the results described in the manuscript “A Statistical Hypothesis Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Keyword Extraction”. ArXiv preprint link: TBA
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ git clone https://github.com/paul-sheridan/bursty-term-measure.git
 
 ## Numerical Experiments
 
-### Burst Term Measures
+### Bursty Term Measures
 
 ### IDF vs. ICF Plot
 
