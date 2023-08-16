@@ -12,7 +12,9 @@ git clone https://github.com/paul-sheridan/bursty-term-measure.git
 
 ## Data
 
-### GENIA Corpus Data
+### GENIA Term Corpus Data
+
+Download the GENIA Term corpus version 3.02 from [here](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage").
 
 #### Preprocessing
 
