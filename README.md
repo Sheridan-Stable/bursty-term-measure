@@ -14,7 +14,7 @@ git clone https://github.com/paul-sheridan/bursty-term-measure.git
 
 ### GENIA Term Corpus Data
 
-Download the GENIA Term corpus version 3.02 from [here](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage").
+Download the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). Extract the `GENIAcorpus3.02.xml` XML file and place it inside the `bursty-term-measure/genia/raw-data` folder.
 
 #### Preprocessing
 
