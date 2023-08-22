@@ -1,4 +1,4 @@
-# A Statistical Hypothesis Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Keyword Extraction
+# A Statistical Hypothesis Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction
 
 This repository contains computer code for reproducing the results described in the manuscript “A Statistical Hypothesis Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction”. ArXiv preprint link: TBA
 
