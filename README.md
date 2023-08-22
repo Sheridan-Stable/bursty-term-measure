@@ -35,11 +35,11 @@ Create a folder called `bursty-term-measure/genia/0-raw-data`. Download the GENI
 
 #### Preprocessing
 
-#### Word Statistics Generation
-
 ### Stop Words
 
 ## Numerical Experiments
+
+### Word Statistics Generation
 
 ### Bursty Term Measures
 
