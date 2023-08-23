@@ -35,15 +35,15 @@ Create a folder called `bursty-term-measure/genia/0-raw-data`. Download the GENI
 
 #### Preprocessing
 
+Go to such and such folder...
+
 ### Stop Words
 
-## Numerical Experiments
-
-### Word Statistics Generation
-
-### Bursty Term Measures
+## GENIA Numerical Experiments
 
 ### IDF vs. ICF Plot
+
+### Bursty Score Calculation
 
 ### Perfromance Evaluation
 
