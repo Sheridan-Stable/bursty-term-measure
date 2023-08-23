@@ -125,7 +125,7 @@ def get_meanBi(vector_theta, vector_nj, d):
   Output a vector containing the means of Bi for all i's.
   """
   phi = np.array([1 - vector_theta,]*d)
-  if type(vector_nj) is matrix:
+  if type(vector_nj) is np.matrix:
     array_nj = np.concatenate(vector_nj.A, axis=0)
   else:
     array_nj = vector_nj
@@ -187,10 +187,10 @@ def get_irvine(nij_by_nj_vector, vector_bi):
   bi_inverse = np.float_power(vector_bi, -1)
   return np.multiply(bi_inverse, nij_by_nj_vector)
 
-def get_gries(collection, vector_ni, vector_nj, n):
+def get_dop(collection, vector_ni, vector_nj, n):
   """
   Input: index i, vectorized collection N.
-  Output: the Gries score, where gries(i) = 1-(1/2)*sum_j=1^d(abs(nij/ni - nj/n))
+  Output: the Gries score, where dop(i) = 1-(1/2)*sum_j=1^d(abs(nij/ni - nj/n))
   """
   return 1 - 1/2*abs((collection/vector_ni) - (vector_nj/n)).sum(axis=0)
 
