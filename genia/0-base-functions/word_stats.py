@@ -138,7 +138,7 @@ def get_varianceBi(vector_nj, matrix_bernoulli):
   Input is a matrix containing 1-theta in every entry, and the vector of nj's
   Output is a vector containig the variances for Bi
   """
-  if type(vector_nj) is matrix:
+  if type(vector_nj) is np.matrix:
     array_nj = np.concatenate(vector_nj.A, axis=0)
   else:
     array_nj = vector_nj
