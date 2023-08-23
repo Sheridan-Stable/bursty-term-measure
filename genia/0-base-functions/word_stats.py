@@ -216,7 +216,7 @@ def get_chisq_score(nji):
   Output: vector of Chi-square test word burstiness scores 
   """
   d, m = nji.shape
-  ni = word_stats.get_Ni(nji).A[0]
+  ni = get_Ni(nji).A[0]
   chisq_values = []
 
   for i in range(m):
