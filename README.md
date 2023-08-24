@@ -1,6 +1,6 @@
-# A Statistical Hypothesis Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction
+# A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction
 
-This repository contains computer code for reproducing the results described in the manuscript “A Statistical Hypothesis Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction”. ArXiv preprint link: TBA
+This repository contains computer code for reproducing the results described in the manuscript “A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction”. ArXiv preprint link: TBA
 
 ## Getting Started
 
@@ -52,7 +52,7 @@ If you find anything useful please cite our work using:
 ```
 @misc{SarriaHurtado2023,
   author = {Samuel Sarria Hurtado and Todd Mullen and Paul Sheridan},
-  title = {A Statistical Hypothesis Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Keyword Extraction},
+  title = {A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction},
   year = {2023},
   eprint = {arXiv:xxxx.xxxxx}
 }
