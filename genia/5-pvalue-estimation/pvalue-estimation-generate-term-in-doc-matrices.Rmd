@@ -1,0 +1,362 @@
+---
+title: "Bursty Term P-value Estimation on GENIA Corpus Dataset"
+author: "Paul Sheridan"
+output: html_notebook
+---
+
+## Notation
+
+Variables of note:
+
+  * term[i] = i'th term in vocabulary
+  * doc[[j]] = j'th doc in collection (unique terms)
+  * d = number of documents in the collection
+  * m = vocabulary size
+  * n = total number of terms in the collection (including multiplicities) 
+  * nij[[j]][i] = total number of occurrences of term[i] in doc[[j]]
+  * ni[i] = total number of occurrences of term[i] in the collection
+  * nj[j] = number of terms in doc[[j]] (including multiplicities)
+  * bi[i] = number of docs in which term[i] occurs at least once
+  * bj[j] = number of unique terms in doc[[j]]
+  * k[[j]][i] = number of occurrences of term[i] in doc[[j]]
+
+
+
+# Preliminaries
+
+```{r}
+# Delete all variables initialized in R session, if any
+rm(list = ls())
+
+# Load libraries
+library(here)
+library(rjson)
+library(magicaxis)
+library(EMT)
+library(readr)
+
+# Set directory relative paths
+data_dir <- "data"
+output_dir <- "output/simulated-term-in-doc-matrices"
+
+# Set random seed
+set.seed(86472)
+
+# Set plot colors 
+gg_color_hue = function(n, alpha = 1) {
+  hues <- seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100, alpha = alpha)[1 : n]
+}
+cols <- c("grey25", gg_color_hue(n = 3))
+tcols <- c("grey25", gg_color_hue(n = 3, alpha = 0.5))
+gray25 <- cols[1]; red <- cols[2]; green <- cols[3]; blue <- cols[4]
+tred <- cols[2]; tgreen <- tcols[3]; tblue <- tcols[4]
+```
+
+
+
+# Read Genia Corpus Data and Collected Basic Stats
+
+```{r}
+# Read data
+infile <- file.path(data_dir, "GENIAcorpus3.02-preprocessed.json")
+raw_doc_strings <- fromJSON(paste(readLines(here(infile)), collapse = ""))
+
+# Convert raw doc strings to tokens
+d <- length(raw_doc_strings)
+raw_docs <- vector("list", length = d)
+
+for (j in 1 : d) {
+  raw_docs[[j]] <- strsplit(raw_doc_strings[[j]], split = " +")[[1]]
+}
+```
+
+
+
+```{r}
+# Calculate basic stats
+d <- length(raw_docs)
+nij <- vector(mode = "list", length = d)
+doc <- vector(mode = "list", length = d)
+all_terms_table <- table(unlist(raw_docs))
+all_terms <- names(all_terms_table)
+all_term_counts <- as.numeric(all_terms_table)
+singleton_terms <- all_terms[which(all_term_counts == 1)]
+for (j in 1 : d) {
+  mydoc <- raw_docs[[j]]
+  #mydoc <- mydoc[!mydoc %in% singleton_terms] # excise singleton terms
+  mytable <- sort(table(mydoc), decreasing = T)
+  nij[[j]] <- as.numeric(mytable)
+  doc[[j]] <- names(mytable)
+}
+nj <- unlist(lapply(nij, sum))
+bj <- unlist(lapply(nij, length))
+term <- unique(unlist(doc))
+m <- length(term)
+n <- sum(unlist(nij))
+ni <- table(unlist(raw_docs))[term]
+bi <- table(unlist(doc))[term]
+bi_unique <- as.numeric(names(table(bi)))
+DP <- as.numeric(bi / d)
+CP <- as.numeric(ni / n)
+IDF <- as.numeric(log(d / bi))
+ICF <- as.numeric(log(n / ni))
+```
+
+
+
+# Generate Permutation Test Data
+
+Rerun this code block at your own risk. It takes a huge abount of time, and I already generated all the matrices.
+
+```{r}
+set.seed(68313)
+R <- 2500
+theta_hat <- ni / n
+
+for (r in 1 : R) {
+  if (r %% 500 == 0) { print(r) }
+  outfile_name <- paste0("matrix-", r, ".csv")
+  outfile <-  file.path(output_dir, outfile_name)
+  nij_sim <- mat.or.vec(nr = m, nc = d)
+  
+  for (j in 1 : d) {
+    nij_sim[, j] <- rmultinom(n = 1, size = nj[j], prob = theta_hat)
+  }
+  
+  write.table(nij_sim, file = here(outfile), row.names = FALSE, col.names = FALSE)
+}
+```
+
+
+## Estimate P-value for a Term of Interest
+
+Estimate the P-value for the 1000'th term.
+- Use only the first 100 simulated term-in-doc matrices for demonstration purposes. 
+
+```{r}
+set.seed(330972)
+R <- 100
+MAX_TOTAL_DRAWS <- 10 ^ 5
+MAX_DRAWS <- 10
+ni_given_bi_rnd_draws <- numeric(0)
+i <- 1000
+bi_test <- bi[1000] # the test statistic
+
+for (r in 1 : R) {
+  if (r %% 25 == 0) { print(r) }
+  infile_name <- paste0("matrix-", r, ".csv")
+  infile <-  file.path(output_dir, infile_name)
+  nij_sim <- as.matrix(read.table(file = here(infile)))
+  ni_sim <- apply(nij_sim, 1, sum)
+  nij_sim[which(nij_sim > 0)] <- 1
+  bi_sim <- apply(nij_sim, 1, sum)
+  bi_sim_candidate_indices <- which(bi_sim == bi_test)
+  ni_sim_candidates <- ni_sim[bi_sim_candidate_indices]
+  num_of_ni_sim_candidates <- length(ni_sim_candidates)
+  
+  if (num_of_ni_sim_candidates > MAX_DRAWS) {
+    ni_given_bi_rnd_draws <- c(ni_given_bi_rnd_draws, sample(x = ni_sim_candidates, size = MAX_DRAWS))
+  } else {
+    ni_given_bi_rnd_draws <- c(ni_given_bi_rnd_draws, ni_sim_candidates)
+  }
+}
+```
+
+
+
+```{r}
+# Histogram of ni values given bi[i] value
+a <- min(ni_given_bi_rnd_draws)
+b <- max(ni_given_bi_rnd_draws)
+foo = hist(
+  ni_given_bi_rnd_draws + 0.001,
+  breaks = b - a,
+  xaxt = "n",
+  freq = FALSE,
+  col = "orange",
+  panel.first=grid(),
+  main = "Histogram of ni",
+  xlab = "ni"
+)
+axis(side = 1, at = foo$mids, labels = seq(a, b))
+```
+
+
+```{r}
+# Estimate -log(P-value) using the tail of a gamma distribution
+library(OneStep)
+fit <- onestep(ni_given_bi_rnd_draws, "gamma")
+shape_est <- fit$estimate['shape']
+rate_est <- fit$estimate['rate']
+nlog_pval_est = -pgamma(q = bi_test, shape = shape_est, rate = rate_est, lower.tail = FALSE, log.p = TRUE)
+nlog_pval_est
+```
+
+
+
+
+
+Fitting the truncated gamma distribution doesn't seem to work
+
+Fitting truncated distributions: https://cran.r-project.org/web/packages/fitdistrplus/vignettes/FAQ.html
+Tutorial: https://cran.r-project.org/web/packages/fitdistrplus/vignettes/FAQ.html#can-i-fit-truncated-distributions
+GitHub issue: https://github.com/aursiber/fitdistrplus/issues/21
+
+```{r}
+library(fitdistrplus)
+
+dtgamma <- function(x, shape, rate, low, upp)
+{
+  PU <- pgamma(upp, shape = shape, rate = rate)
+  PL <- pgamma(low, shape = shape, rate = rate)
+  dgamma(x, shape, rate) / (PU - PL) * (x >= low) * (x <= upp) 
+}
+
+ptgamma <- function(q, shape, rate, low, upp)
+{
+  PU <- pgamma(upp, shape = shape, rate = rate)
+  PL <- pgamma(low, shape = shape, rate = rate)
+  (pgamma(q, shape, rate) - PL) / (PU - PL) * (q >= low) * (q <= upp) + 1 * (q > upp)
+}
+
+set.seed(20230718)
+n <- 10000
+shape <- 11
+rate <- 3
+x0 <- 5
+x <- rgamma(n, shape = shape, rate = rate)
+x <- x[x > x0]
+fit <- fitdist(data = x, distr = "tgamma", method = "mle", start = list(shape = shape, rate = rate), fix.arg = list(low = x0, upp = Inf), lower = c(0, 0))
+fit
+```
+
+
+```{r}
+a <- min(x)
+b <- max(x)
+foo = hist(
+  x + 0.001,
+  breaks = b - a,
+  xaxt = "n",
+  freq = FALSE,
+  col = "orange",
+  panel.first=grid(),
+  main = "Histogram of truncated gamma",
+  xlab = "x"
+)
+axis(side = 1, at = foo$mids, labels = seq(a, b))
+
+shape_est <- f1$estimate[1]
+rate_est <- f1$estimate[2]
+shape_est <- 11
+rate_est <- 5
+xfit <- seq(min(x), max(x), length = 10) 
+yfit <- dgamma(xfit, shape = shape_est, rate = rate_est) 
+yfit <- yfit * diff(foo$mids[1 : 2]) * length(x) 
+
+lines(xfit, yfit, col = "black", lwd = 2)
+```
+
+
+```{r}
+plot(xfit, yfit, type = "l")
+```
+
+
+```{r}
+library(OneStep)
+set.seed(20230723)
+n <- 2500
+shape <- 11
+rate <- 3
+x0 <- 5
+x <- rgamma(n, shape = shape, rate = rate)
+onestep(x, "gamma")
+```
+
+
+
+
+
+## Experiment with distribution of ni
+
+```{r}
+set.seed(921012)
+R <- 2500
+MAX_TOTAL_DRAWS <- 10 ^ 5
+MAX_DRAWS <- 10
+ni_rnd_draws <- numeric(R)
+theta_hat <- ni / n
+i <- 1000
+print(bi[i])
+print(ni[i])
+
+for (r in 1 : R) {
+  if (r %% 500 == 0) { print(r) }
+  infile_name <- paste0("matrix-", r, ".csv")
+  infile <-  file.path(output_dir, infile_name)
+  nij_sim <- as.numeric(read.table(file = here(infile), skip = i - 1, nrows = 1))
+  ni_sim <- sum(nij_sim)
+  bij_sim <- numeric(d)
+  bij_sim[which(nij_sim > 0)] <- 1
+  bi_sim <- sum(bij_sim)
+  
+  ni_rnd_draws[r] <- ni_sim
+}
+```
+
+
+
+```{r}
+a <- min(ni_rnd_draws)
+b <- max(ni_rnd_draws)
+foo = hist(
+  ni_rnd_draws + 0.001,
+  breaks = b - a,
+  xaxt = "n",
+  freq = FALSE,
+  col = "orange",
+  panel.first=grid(),
+  main = "Histogram of ni",
+  xlab = "ni"
+)
+axis(side = 1, at = foo$mids, labels = seq(a, b))
+```
+
+
+```{r}
+length(which(ni_rnd_draws > ni[i]))
+mean(ni_rnd_draws)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
