@@ -259,3 +259,27 @@ def get_naive_shms(nji):
   
   scores = np.array(scores)
   return scores
+
+def eidf_idf_diff(theta, d, nj, bi):
+    """
+    input: the theta value, d as in the number of docs, nj as in the vector of all nj's in the collection, and a single bi value corresponding to the word for which you want to calculate this difference.
+    output: the difference between the expected idf and the idf, given a theta value. Unlike most functions here, this returns a value, not a vector.
+    """
+    sum1 = np.power(1 - theta, nj, dtype=np.longdouble).sum()
+    sum2 = np.power(1 - theta, 2*nj, dtype=np.longdouble).sum()
+
+    EDF = 1 - (1/d)*sum1
+    EIDF = (sum1 - sum2)/((2*d**2)*EDF**2) - np.log(EDF)
+    return EIDF - np.log(d/bi)
+
+def get_b1(collection, m, d, nj):
+    """
+    input: the collection, the number of unique words in the collection, m; the number of documents, d; and the vector containing all nj's.
+    output: an array containing the optimal theta values to minimize the difference between the expected idf and the observed idf.
+    """
+    thetas = np.array(range(1, max(get_Ni(collection) + 1)))/get_N(get_Ni(collection))
+    opt_thetas = []
+    for i in range(m):
+        result = scipy.optimize.brentq(f = lambda x: eidf_idf_diff(x, d, nj.T.A[0], bi.A[0][i]), a=min(thetas), b=max(thetas))
+        opt_thetas.append(result)
+    return np.array(result)
