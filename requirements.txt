@@ -1,7 +1,0 @@
-pip install jupyter
-pip install numpy
-pip install pandas
-pip install bs4
-pip install inflect
-pip install html5lib
-pip install lxml
