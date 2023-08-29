@@ -173,13 +173,6 @@ def get_eidf(mean_bi, var_bi, d):
   ans = -np.log(mean_bi) + var_bi/(2*np.float_power(mean_bi, 2)) + math.log(d)
   return np.reshape(ans, (len(mean_bi),))
 
-def get_kwok(ni, n):
-  """
-  Input: vector of term frequencies, and total term frequency
-  Output: vector Kwok word burstiness scores
-  """
-  return np.log(ni/(n - ni))
-
 def get_irvine(nij_by_nj_vector, vector_bi):
   """
   Input: i index, vector of all bi's,
@@ -194,22 +187,6 @@ def get_dop(collection, vector_ni, vector_nj, n):
   Output: the Gries score, where dop(i) = 1-(1/2)*sum_j=1^d(abs(nij/ni - nj/n))
   """
   return 1 - 1/2*abs((collection/vector_ni) - (vector_nj/n)).sum(axis=0)
-
-def get_dm(collection, vector_bj, vector_nj, d):
-  """
-  Input: index i, vectorized collection, vector of all bj's, vector of all nj's.
-  Output: the Dirichlet Multinomial score, where dm(i) = (1/d)*sum_j=1^d(bj*nij/nj)
-  """
-  vector_dm = np.multiply(vector_bj, np.float_power(vector_nj, -1))
-  return (1/d)*(vector_dm.T*collection)
-
-def get_improved_dm(vector_sigma_alpha_i, vector_mu_alpha_i):
-  """
-  Input: vector of sigma alpha i's and the vector of mean alpha i's
-  Output: vector of the improved Dirilecth-Multinomial word burstiness scores
-  """
-  return vector_sigma_alpha_i/vector_mu_alpha_i
-
 
 def get_chisq_score(nji):
   """
@@ -230,35 +207,6 @@ def get_chisq_score(nji):
     chisq_values.append(pvalue)
 
   return chisq_values
-
-def get_naive_shms(nji):
-  """
-  Input: term-in-document matrix
-  Output: vector of naive SHMS word burstiness scores
-  """
-  d, m = nji.shape
-  bij = nji.__gt__(0).astype(int)
-  
-  if type(nji) is scipy.sparse._csr.csr_matrix:
-    ni = nji.sum(axis=0).A[0]
-    bi = bij.sum(axis=0).A[0]
-  else:
-    ni = nji.sum(axis=0)
-    bi = bij.sum(axis=0)
-
-  n = ni.sum()
-  CP = ni/n
-  ICF = -np.log(CP)
-  EICF = (1 - CP)/(2*n*CP) - np.log(CP)
-  CP_baseline = np.arange(start=1, stop=d + 1)/n
-  EICF_baseline = (1 - CP_baseline)/(2*n*CP_baseline) - np.log(CP_baseline)
-  scores = []
-
-  for i in range(m):
-    scores.append(EICF_baseline[bi[i] - 1] - ICF[i])
-  
-  scores = np.array(scores)
-  return scores
 
 def eidf_idf_diff(theta, d, nj, bi):
     """
