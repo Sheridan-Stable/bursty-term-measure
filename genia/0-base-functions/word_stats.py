@@ -220,12 +220,12 @@ def eidf_idf_diff(theta, d, nj, bi):
     EIDF = (sum1 - sum2)/((2*d**2)*EDF**2) - np.log(EDF)
     return EIDF - np.log(d/bi)
 
-def get_b1(collection, m, d, nj):
+def get_ricf(collection, m, d, nj):
     """
     input: the collection, the number of unique words in the collection, m; the number of documents, d; and the vector containing all nj's.
     output: an array containing the optimal theta values to minimize the difference between the expected idf and the observed idf.
     """
-    thetas = np.array(range(1, max(get_Ni(collection) + 1)))/get_N(get_Ni(collection))
+    thetas = np.array(range(1, max(get_Ni(collection).A[0] + 1)))/get_N(get_Ni(collection))
     opt_thetas = []
     for i in range(m):
         result = scipy.optimize.brentq(f = lambda x: eidf_idf_diff(x, d, nj.T.A[0], bi.A[0][i]), a=min(thetas), b=max(thetas))
