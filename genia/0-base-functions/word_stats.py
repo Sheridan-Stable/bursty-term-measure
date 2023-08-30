@@ -219,15 +219,22 @@ def eidf_idf_diff(theta, d, nj, bi):
     EDF = 1 - (1/d)*sum1
     EIDF = (sum1 - sum2)/((2*d**2)*EDF**2) - np.log(EDF)
     return EIDF - np.log(d/bi)
-
-def get_ricf(collection, m, d, nj):
+def get_opt_thetas(n, m, d, ni, nj, bi, thetas):
     """
-    input: the collection, the number of unique words in the collection, m; the number of documents, d; and the vector containing all nj's.
-    output: an array containing the optimal theta values to minimize the difference between the expected idf and the observed idf.
+    input: the number of words with multiplicities in the entire collection, n; the number of unique words, m; the number of docs, d; the vector containing all the ni's, the vector containing all the nj's, the vector containing all the bi's, a vector containing thetas.
+    output: a vector of the optimal thetas such that the difference between the icf and the expected icf is minimized.
     """
-    thetas = np.array(range(1, max(get_Ni(collection).A[0] + 1)))/get_N(get_Ni(collection))
     opt_thetas = []
     for i in range(m):
-        result = scipy.optimize.brentq(f = lambda x: eidf_idf_diff(x, d, nj.T.A[0], bi.A[0][i]), a=min(thetas), b=max(thetas))
+        result = scipy.optimize.brentq(f=lambda x: eidf_idf_diff(x, d, nj.T.A[0], bi.A[0][i]), a=min(thetas), b=max(thetas))
         opt_thetas.append(result)
-    return np.array(result)
+    
+    return np.array(opt_thetas)
+def get_ricf(thetas, n, icf):
+    """
+    input: the optimal vector of thetas to minimize the difference between expected icf and observed icf, the number of all words with multiplicities, n; and the vector containing the icf values for all words. 
+    output: the ricf, which is the difference between the expected icf and the observed icf.
+    """
+    expected_ICF = get_eicf(thetas, n)
+    observed_ICF = icf
+    return expected_ICF - observed_ICF
