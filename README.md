@@ -27,10 +27,12 @@ jupyter notebook
 ```
 and open a Jupyter Notebook of interest.
 
-When finished, close down the the virtual environment:
+Remeber to close down the the virtual environment
 ```
 deactivate
 ```
+once you are done.
+
 
 ## Data
 
