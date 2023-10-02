@@ -27,7 +27,7 @@ deactivate
 
 ### GENIA Term Corpus Data
 
-Create a folder called `bursty-term-measure/genia/0-raw-data`. Download the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). Extract the `GENIAcorpus3.02.xml` XML file and place it in the `bursty-term-measure/genia/0-raw-data` folder.
+We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA Project homepage ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). The extracted `GENIAcorpus3.02.xml` XML file is located in the `bursty-term-measure/genia/0-raw-data` folder.
 
 #### Preprocessing
 
