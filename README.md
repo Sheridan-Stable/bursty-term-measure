@@ -64,16 +64,16 @@ The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in 
 
 ### Bursty Score Calculation
 
-### Stopwords Exploratory Analysis
-
 ### Perfromance Evaluation
+
+### Stopwords Exploratory Analysis
 
 ## Citation
 If you find anything useful please cite our work using:
 ```
 @misc{SarriaHurtado2023,
-  author = {Samuel Sarria Hurtado and Todd Mullen and Paul Sheridan},
-  title = {A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction},
+  author = {Samuel Sarria Hurtado and Todd Mullen and Taku Onodera and Paul Sheridan},
+  title = {A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction},
   year = {2023},
   eprint = {arXiv:xxxx.xxxxx}
 }
