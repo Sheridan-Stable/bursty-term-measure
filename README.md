@@ -38,8 +38,6 @@ deactivate
 
 We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA Project homepage ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). The extracted `GENIAcorpus3.02.xml` XML file is located in the `genia/0-raw-data` folder.
 
-#### Preprocessing
-
 To preprocess the GENIA data, open and run the `bursty-term-measure/genia/1-preprocessing/preprocessing-script.ipynb` Jupyter Notebook. After applying a variety of preprocessing steps to the data, the notebook outputs three files to the `genia/0-data-preprocessed` folder:
 
 - `GENIAcorpus3.02-doc-ids.csv` (CSV): Article Ids
@@ -56,7 +54,7 @@ We compiled a list of 989 English stopwords by pooling stopwords from
 - The Terrier IR Platform (733 stopwords, [download page](https://www.kaggle.com/datasets/rowhitswami/stopwords?resource=download "Kaggle: All English Stopwords (700+)") stored locally at `genia/0-raw-data/terrier-stopwords.txt` 
 - MyISAM (543 stopwords, [download page](https://dev.mysql.com/doc/refman/8.0/en/fulltext-stopwords.html "12.9.4 Full-Text Stopwords: Stopwords for MyISAM Search Indexes") stored locally at `genia/0-raw-data/myisam-stopwords.txt` 
 
-The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in an exploratory analysis described below.
+The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in an exploratory analysis described below. No preprocessing is required.
 
 ## GENIA Numerical Experiments
 
