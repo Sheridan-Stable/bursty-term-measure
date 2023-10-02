@@ -5,21 +5,28 @@ This repository contains computer code for reproducing the results described in 
 ## Getting Started
 
 Clone this repository by running the command
-
 ```
 git clone https://github.com/paul-sheridan/bursty-term-measure.git
 ```
-
 and `cd` into the repository root folder `bursty-term-measure`.
 
-### Running Python Code
-
 Repository code is written in Python 3 in a Jupyter Notebook environment. While there are multiple ways to run a repository Jupyter Notebook, here is one way to do it:
+
+From the command line, create a virtual environment:
 ```
 python3 -m venv .
 source bin/activate
 pip install -r requirements.txt
+```
+
+Launch a Jupyter Notebook server in your default web browser
+```
 jupyter notebook
+```
+and open a Jupyter Notebook of interest.
+
+When finished, close down the the virtual environment:
+```
 deactivate
 ```
 
