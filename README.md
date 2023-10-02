@@ -58,7 +58,7 @@ We compiled a list of 989 English stopwords by pooling stopwords from
 
 The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in an exploratory analysis described below. No preprocessing is required.
 
-## GENIA Numerical Experiments
+## GENIA Data Numerical Experiments
 
 ### IDF vs. ICF Plot
 
