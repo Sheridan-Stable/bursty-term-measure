@@ -31,6 +31,7 @@ We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from
 
 #### Preprocessing
 
+To preprocess the GENIA data, open and run the `bursty-term-measure/genia/1-preprocessing/preprocessing-script.ipynb` Jupyter Notebook. 
 
 
 ### Stop Words
