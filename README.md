@@ -23,10 +23,6 @@ jupyter notebook
 deactivate
 ```
 
-### Running R Code
-
-Run repository R code by opening associated R Markdown files in RStudio.
-
 ## Data
 
 ### GENIA Term Corpus Data
