@@ -1,6 +1,6 @@
 # A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction
 
-This repository contains computer code for reproducing the results described in the manuscript “A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Term Extraction”. ArXiv preprint link: TBA
+This repository contains computer code for reproducing the results described in the manuscript “A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction”. ArXiv preprint link: TBA
 
 ## Getting Started
 
