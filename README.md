@@ -46,7 +46,7 @@ To preprocess the GENIA data, open and run the `bursty-term-measure/genia/1-prep
 
 The particular preprocessing steps are described in the notebook.
 
-### Stopwords
+### Common Stopwords
 
 We compiled a list of 989 English stopwords by pooling stopwords from
 
