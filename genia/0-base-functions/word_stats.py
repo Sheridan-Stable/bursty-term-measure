@@ -206,7 +206,7 @@ def get_chisq_score(nji):
     pvalue = scipy.stats.chisquare(f_obs=observed, f_exp=expected)[1]
     chisq_values.append(pvalue)
 
-  return chisq_values
+  return -np.log(chisq_values)
 
 def eidf_idf_diff(theta, d, nj, bi):
     """
@@ -219,6 +219,7 @@ def eidf_idf_diff(theta, d, nj, bi):
     EDF = 1 - (1/d)*sum1
     EIDF = (sum1 - sum2)/((2*d**2)*EDF**2) - np.log(EDF)
     return EIDF - np.log(d/bi)
+    
 def get_opt_thetas(n, m, d, ni, nj, bi, thetas):
     """
     input: the number of words with multiplicities in the entire collection, n; the number of unique words, m; the number of docs, d; the vector containing all the ni's, the vector containing all the nj's, the vector containing all the bi's, a vector containing thetas.
@@ -230,6 +231,7 @@ def get_opt_thetas(n, m, d, ni, nj, bi, thetas):
         opt_thetas.append(result)
     
     return np.array(opt_thetas)
+    
 def get_ricf(thetas, n, icf):
     """
     input: the optimal vector of thetas to minimize the difference between expected icf and observed icf, the number of all words with multiplicities, n; and the vector containing the icf values for all words. 
