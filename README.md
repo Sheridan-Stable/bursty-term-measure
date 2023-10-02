@@ -31,7 +31,7 @@ We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from
 
 #### Preprocessing
 
-Go to such and such folder...
+
 
 ### Stop Words
 
