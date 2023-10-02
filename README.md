@@ -62,6 +62,8 @@ The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in 
 
 ### IDF vs. ICF Plot
 
+Run the `genia/2-figure/figure-1-script.ipynb` notebook to generate the plot of Figure 1 from the manuscript.
+
 ### Term Burstiness Score Evaluation
 
 ### Perfromance Evaluation
