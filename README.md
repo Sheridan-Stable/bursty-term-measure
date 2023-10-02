@@ -36,7 +36,7 @@ once you are done.
 
 ## Data
 
-### GENIA Term Corpus Data
+### GENIA Data
 
 We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA Project homepage ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). The extracted `GENIAcorpus3.02.xml` XML file is located in the `genia/0-raw-data` folder.
 
