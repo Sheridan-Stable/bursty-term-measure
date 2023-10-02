@@ -14,7 +14,7 @@ and `cd` into the repository root folder `bursty-term-measure`.
 
 ### Running Python Code
 
-Most repository code is written in Python 3 in a Jupyter Notebook environment. While there are multiple ways to run a repository Jupyter Notebook, here is one way to do it:
+Repository code is written in Python 3 in a Jupyter Notebook environment. While there are multiple ways to run a repository Jupyter Notebook, here is one way to do it:
 ```
 python3 -m venv .
 source bin/activate
