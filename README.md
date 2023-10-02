@@ -33,19 +33,31 @@ We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from
 
 To preprocess the GENIA data, open and run the `bursty-term-measure/genia/1-preprocessing/preprocessing-script.ipynb` Jupyter Notebook. After applying a variety of preprocessing steps to the data, the notebook outputs three files to the `genia/0-data-preprocessed` folder:
 
-- `GENIAcorpus3.02-doc-ids.csv` (CSV): Article Ids.
-- `GENIAcorpus3.02-keywords.tsv` (TSV): Mapping of lexical units to semantic classes.
-- `GENIAcorpus3.02-preprocessed.json` (JSON): Abstract texts after preprocessing.
+- `GENIAcorpus3.02-doc-ids.csv` (CSV): Article Ids
+- `GENIAcorpus3.02-keywords.tsv` (TSV): Mapping of lexical units to semantic classes
+- `GENIAcorpus3.02-preprocessed.json` (JSON): Abstract texts after preprocessing
 
 The particular preprocessing steps are described in the notebook.
 
-### Stop Words
+### Stopwords
+
+We compiled a list of 989 English stopwords by pooling stopwords from
+
+- The nltk 3.8.1 Python library (179 stopwords)
+- The Terrier IR Platform (733 stopwords) ([download page](https://www.kaggle.com/datasets/rowhitswami/stopwords?resource=download "Kaggle: All English Stopwords (700+)"))
+  - Location: `genia/0-raw-data/terrier-stopwords.txt` 
+- MyISAM (543 stopwords) ([download page](https://dev.mysql.com/doc/refman/8.0/en/fulltext-stopwords.html "12.9.4 Full-Text Stopwords: Stopwords for MyISAM Search Indexes"))
+  - Location: `genia/0-raw-data/myisam-stopwords.txt` 
+
+We used the 417 (out of 989) stopwords found to occur in the GENIA data in an exploratory analysis described below.
 
 ## GENIA Numerical Experiments
 
 ### IDF vs. ICF Plot
 
 ### Bursty Score Calculation
+
+### Stopwords Exploratory Analysis
 
 ### Perfromance Evaluation
 
