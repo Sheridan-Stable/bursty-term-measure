@@ -27,12 +27,17 @@ deactivate
 
 ### GENIA Term Corpus Data
 
-We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA Project homepage ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). The extracted `GENIAcorpus3.02.xml` XML file is located in the `bursty-term-measure/genia/0-raw-data` folder.
+We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA Project homepage ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). The extracted `GENIAcorpus3.02.xml` XML file is located in the `genia/0-raw-data` folder.
 
 #### Preprocessing
 
-To preprocess the GENIA data, open and run the `bursty-term-measure/genia/1-preprocessing/preprocessing-script.ipynb` Jupyter Notebook. 
+To preprocess the GENIA data, open and run the `bursty-term-measure/genia/1-preprocessing/preprocessing-script.ipynb` Jupyter Notebook. After applying a variety of preprocessing steps to the data, the notebook outputs three files to the `genia/0-data-preprocessed` folder:
 
+- `GENIAcorpus3.02-doc-ids.csv` (CSV): Article Ids.
+- `GENIAcorpus3.02-keywords.tsv` (TSV): Mapping of lexical units to semantic classes.
+- `GENIAcorpus3.02-preprocessed.json` (JSON): Abstract texts after preprocessing.
+
+The particular preprocessing steps are described in the notebook.
 
 ### Stop Words
 
