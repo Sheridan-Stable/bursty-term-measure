@@ -66,9 +66,13 @@ Run the `genia/2-figure/figure-1-script.ipynb` notebook to generate the plot of 
 
 ### Term Burstiness Score Evaluation
 
-### Perfromance Evaluation
+To reproduce the resutls of Tables 3-6 from the paper:
+1. Run the `genia/3-keybert/keybert-scores.ipynb` notebook to generate KeyBERT term scores.
+2. Run the `genia/3-burstiness-evaluation/burstiness-evaluation.ipynb` notebook to generate the Church Gale (CG), Irvine and Callison-Burch (ICB), Derivation of Proportions (DOP), Chi-square test, and Resicual ICF (RICF) term burstiness scores. Data used for the tables is outputted to the `genia/3-main-results` folder.
 
 ### Stopwords Exploratory Analysis
+
+
 
 ## Citation
 If you find anything useful please cite our work using:
