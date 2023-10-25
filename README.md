@@ -80,6 +80,6 @@ If you find anything useful please cite our work using:
   author = {Samuel Sarria Hurtado and Todd Mullen and Taku Onodera and Paul Sheridan},
   title = {A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction},
   year = {2023},
-  eprint = {arXiv:xxxx.xxxxx}
+  eprint = {arXiv:2310.15790}
 }
 ```
