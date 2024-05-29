@@ -63,13 +63,17 @@ The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in 
 
 Run the `genia/2-figure/figure-1.ipynb` notebook to generate the plot of Figure 1 from the manuscript.
 
+### GENIA Term Corpus Summary Statistics
+
+To reproduce the GENIA Term corpus summary statistics of Table 3 from the manuscript, run the relevalnt code blocks in the `genia/3-tables/tables.ipynb` notebook. Data used fof the table is output to the `genia/3-tables/table-3` folder.
+
 ### Term Burstiness Score Evaluation
 
-To reproduce performance evaluation results from Table 4 from the manuscript, run the `genia/3-tables/tables.ipynb` notebook. This will generate the IDF, ICF, Chi-square test, Church Gale (CG), Irvine and Callison-Burch (ICB), Derivation of Proportions (DOP), Chi-square test, and Resicual ICF (RICF) term burstiness scores. Data used for the table is output directly to the `genia/3-tables` folder.
+To reproduce performance evaluation results from Table 4 from the manuscript, run the relevalnt code blocks in the `genia/3-tables/tables.ipynb` notebook. This will generate the IDF, ICF, Chi-square test, Church Gale (CG), Irvine and Callison-Burch (ICB), Derivation of Proportions (DoP), Chi-square test, and Residual ICF (RICF) term burstiness scores. Data used for the table is output directly to the `genia/3-tables/table-4` folder.
 
 ### Stopwords Exploratory Analysis
 
-Run the `genia/3-tables/tables.ipynb` notebook to reproduce the results of the stopwords analysis in Tables 5 and 6 from the manuscript. Data used for the tables is output directly to the `genia/3-tables` folder.
+Run the relevant code blocks in the `genia/3-tables/tables.ipynb` notebook to reproduce the results of the stopwords analysis in Tables 5 and 6 from the manuscript. Data used for the tables is output directly to the `genia/3-tables/table-5` and `genia/3-tables/table-6` folders, respectively.
 
 ## Citation
 If you find anything useful please cite our work using:
