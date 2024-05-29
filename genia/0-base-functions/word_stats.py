@@ -186,7 +186,7 @@ def get_DoP(collection, vector_ni, vector_nj, n):
   Input: index i, vectorized collection N.
   Output: the Gries score, where dop(i) = 1-(1/2)*sum_j=1^d(abs(nij/ni - nj/n))
   """
-  return 1 - 1/2*abs((collection/vector_ni) - (vector_nj/n)).sum(axis=0)
+  return -(1 - 1/2*abs((collection/vector_ni) - (vector_nj/n)).sum(axis=0))
 
 def get_Chisq(nji):
   """
