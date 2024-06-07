@@ -6,7 +6,7 @@ This repository contains computer code for reproducing the results described in 
 
 Clone this repository by running the command
 ```
-git clone https://github.com/paul-sheridan/bursty-term-measure.git
+git clone https://github.com/sheridan-stable/bursty-term-measure.git
 ```
 and `cd` into the repository root folder `bursty-term-measure`.
 
