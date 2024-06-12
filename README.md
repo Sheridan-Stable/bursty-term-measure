@@ -78,10 +78,10 @@ Run the relevant code blocks in the `genia/3-tables/tables.ipynb` notebook to re
 ## Citation
 If you find anything useful please cite our work using:
 ```
-@misc{SarriaHurtado2023,
-  author = {Samuel Sarria Hurtado and Todd Mullen and Taku Onodera and Paul Sheridan},
+@misc{SarriaHurtado2024,
+  author = {Samuel Sarria Hurtado and Paul Sheridan and Todd Mullen and Uyen Lai and Taku Onodera and Gurjit S. Randhawa and Aitazaz A. Farooque},
   title = {A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction},
-  year = {2023},
-  eprint = {arXiv:2310.15790}
+  year = {2024},
+  eprint = {arXiv:XXXX.XXXXX}
 }
 ```
