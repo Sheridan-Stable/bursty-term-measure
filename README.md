@@ -39,7 +39,7 @@ once you are done.
 
 We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA Project homepage ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). The extracted `GENIAcorpus3.02.xml` XML file is located in the `genia/0-raw-data` folder.
 
-To preprocess the GENIA data, open and run the `bursty-term-measure/genia/1-preprocessing/preprocessing-script.ipynb` Jupyter Notebook. After applying a variety of preprocessing steps to the data, the notebook outputs three files to the `genia/0-data-preprocessed` folder:
+To preprocess the GENIA data, open and run the `bursty-term-measure/genia/1-preprocessing/preprocessing.ipynb` Jupyter Notebook. After applying a variety of preprocessing steps to the data, the notebook outputs three files to the `genia/1-preprocessing` folder:
 
 - `GENIAcorpus3.02-doc-ids.csv` (CSV): Article Ids
 - `GENIAcorpus3.02-keywords.tsv` (TSV): Mapping of lexical units to semantic classes
@@ -61,25 +61,27 @@ The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in 
 
 ### IDF vs. ICF Plot
 
-Run the `genia/2-figure/figure-1-script.ipynb` notebook to generate the plot of Figure 1 from the manuscript.
+Run the `genia/2-figure/figure-1.ipynb` notebook to generate the plot of Figure 1 from the manuscript.
+
+### GENIA Term Corpus Summary Statistics
+
+To reproduce the GENIA Term corpus summary statistics of Table 3 from the manuscript, run the relevalnt code blocks in the `genia/3-tables/tables.ipynb` notebook. Data used fof the table is output to the `genia/3-tables/table-3` folder.
 
 ### Term Burstiness Score Evaluation
 
-To reproduce performance evaluation results from Table 4 from the manuscript:
-1. Run the `genia/3-keybert/keybert-scores.ipynb` notebook to generate KeyBERT term scores. Scores are output to the `genia/3-keybert/keybert-scores.json` JSON file.
-2. Run the `genia/3-burstiness-evaluation/burstiness-evaluation.ipynb` notebook to generate the Church Gale (CG), Irvine and Callison-Burch (ICB), Derivation of Proportions (DOP), Chi-square test, and Resicual ICF (RICF) term burstiness scores. Data used for the table is output to the `genia/3-main-results` folder.
+To reproduce performance evaluation results from Table 4 from the manuscript, run the relevalnt code blocks in the `genia/3-tables/tables.ipynb` notebook. This will generate the IDF, ICF, Chi-square test, Church Gale (CG), Irvine and Callison-Burch (ICB), Derivation of Proportions (DoP), Chi-square test, and Residual ICF (RICF) term burstiness scores. Data used for the table is output directly to the `genia/3-tables/table-4` folder.
 
 ### Stopwords Exploratory Analysis
 
-Run the `genia/3-burstiness-evaluation/burstiness-evaluation.ipynb` notebook to reproduce the results of the stopwords analysis in Tables 5 and 6 from the manuscript. Data used for the tables is output to the `genia/3-main-results` folder.
+Run the relevant code blocks in the `genia/3-tables/tables.ipynb` notebook to reproduce the results of the stopwords analysis in Tables 5 and 6 from the manuscript. Data used for the tables is output directly to the `genia/3-tables/table-5` and `genia/3-tables/table-6` folders, respectively.
 
 ## Citation
 If you find anything useful please cite our work using:
 ```
-@misc{SarriaHurtado2023,
-  author = {Samuel Sarria Hurtado and Todd Mullen and Taku Onodera and Paul Sheridan},
+@misc{SarriaHurtado2024,
+  author = {Samuel Sarria Hurtado and Paul Sheridan and Todd Mullen and Uyen Lai and Taku Onodera and Gurjit S. Randhawa and Aitazaz A. Farooque},
   title = {A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction},
-  year = {2023},
-  eprint = {arXiv:2310.15790}
+  year = {2024},
+  eprint = {arXiv:XXXX.XXXXX}
 }
 ```

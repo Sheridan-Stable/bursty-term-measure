@@ -44,35 +44,35 @@ def get_Bj(matrix_bij):
   """
   return matrix_bij.sum(axis=1)
 
-def get_cf(vector_ni):
+def get_CF(vector_ni):
   """
   Input is the vector containing all ni's, and index i
   Output is a vector of the collection frequency, where cf(i) = ni/n
   """
   return vector_ni/get_N(vector_ni)
 
-def get_df(vector_bi, d):
+def get_DF(vector_bi, d):
   """
   Input the vector of all bi's, and the number of docs, d.
   Output a vector of the document frequency, where df(i) = bi/b
   """
   return vector_bi/d
 
-def get_idf(vector_df):
+def get_IDF(vector_df):
   """
   Input is the vector of all df's
   Output  a vector of the inverse document frequency, where idf(i) = -log(df(i))
   """
   return -np.log(vector_df)
 
-def get_icf(vector_cf):
+def get_ICF(vector_cf):
   """
   Input is a vector containing all of cf's.
   Output a vector of the inverse collection frequency
   """
   return -np.log(vector_cf)
 
-def get_church(vector_ni, vector_bi):
+def get_CG(vector_ni, vector_bi):
   """
   Input is a vector containig all of ni's, and vector contaning all of bi's.
   Output a vector of the Church and Gale score, where church(i) = ni/bi
@@ -158,14 +158,14 @@ def get_thetas(vector_cf, step):
   end = vector_cf.max()
   return np.exp(np.arange(np.log(start), np.log(end), step))
 
-def get_eicf(vector_theta, n):
+def get_eICF(vector_theta, n):
   """
   Input is a vector of thetas, and the number of terms in the collection, n
   Output is a vector containing the expected icf for each entry i
   """
   return (1-vector_theta)/(2*n*vector_theta) - np.log(vector_theta)
 
-def get_eidf(mean_bi, var_bi, d):
+def get_eIDF(mean_bi, var_bi, d):
   """
   Input is a vector of all means of bi, a vector of all variances of bi, and constant d
   Output is a vector containing all expected values of idf for any given i
@@ -173,7 +173,7 @@ def get_eidf(mean_bi, var_bi, d):
   ans = -np.log(mean_bi) + var_bi/(2*np.float_power(mean_bi, 2)) + math.log(d)
   return np.reshape(ans, (len(mean_bi),))
 
-def get_irvine(nij_by_nj_vector, vector_bi):
+def get_ICB(nij_by_nj_vector, vector_bi):
   """
   Input: i index, vector of all bi's,
   Output: Irvine and Callison-Burch score, irvine(i) = 1/bi(get_nij_by_nj(i))
@@ -181,14 +181,14 @@ def get_irvine(nij_by_nj_vector, vector_bi):
   bi_inverse = np.float_power(vector_bi, -1)
   return np.multiply(bi_inverse, nij_by_nj_vector)
 
-def get_dop(collection, vector_ni, vector_nj, n):
+def get_DoP(collection, vector_ni, vector_nj, n):
   """
   Input: index i, vectorized collection N.
   Output: the Gries score, where dop(i) = 1-(1/2)*sum_j=1^d(abs(nij/ni - nj/n))
   """
-  return 1 - 1/2*abs((collection/vector_ni) - (vector_nj/n)).sum(axis=0)
+  return -(1 - 1/2*abs((collection/vector_ni) - (vector_nj/n)).sum(axis=0))
 
-def get_chisq_score(nji):
+def get_Chisq(nji):
   """
   Input: array of word in document counts
   Output: vector of Chi-square test word burstiness scores 
@@ -232,11 +232,11 @@ def get_opt_thetas(n, m, d, ni, nj, bi, thetas):
     
     return np.array(opt_thetas)
     
-def get_ricf(thetas, n, icf):
+def get_RICF(thetas, n, icf):
     """
     input: the optimal vector of thetas to minimize the difference between expected icf and observed icf, the number of all words with multiplicities, n; and the vector containing the icf values for all words. 
     output: the ricf, which is the difference between the expected icf and the observed icf.
     """
-    expected_ICF = get_eicf(thetas, n)
+    expected_ICF = get_eICF(thetas, n)
     observed_ICF = icf
     return expected_ICF - observed_ICF
