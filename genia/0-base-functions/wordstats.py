@@ -120,7 +120,7 @@ def get_matrix_bernoulli(vector_theta, d):
   """
   return np.array([1- vector_theta]*d)
 
-def get_meanBi(vector_theta, vector_nj, d):
+def get_mean_Bi(vector_theta, vector_nj, d):
   """
   Input vector of theta i's, vector of nj's, and number of docs in collection, d.
   Output a vector containing the means of Bi for all i's.
@@ -134,7 +134,7 @@ def get_meanBi(vector_theta, vector_nj, d):
   phi = np.float_power(phi, powers)
   return d - phi.sum(axis=0)
 
-def get_varianceBi(vector_nj, matrix_bernoulli):
+def get_variance_Bi(vector_nj, matrix_bernoulli):
   """
   Input is a matrix containing 1-theta in every entry, and the vector of nj's
   Output is a vector containig the variances for Bi
@@ -240,3 +240,11 @@ def get_RICF(thetas, n, icf):
     expected_ICF = get_eICF(thetas, n)
     observed_ICF = icf
     return expected_ICF - observed_ICF
+
+def get_RICF(ricf, Bi):
+    """
+    input: RICF scores, bi values. 
+    output: Weighted RICF scores.
+    """
+    wricf = 0
+    return wricf
