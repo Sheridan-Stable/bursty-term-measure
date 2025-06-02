@@ -241,7 +241,7 @@ def get_RICF(thetas, n, icf):
     observed_ICF = icf
     return expected_ICF - observed_ICF
 
-def get_RICF(ricf, Bi):
+def get_wRICF(ricf, Bi):
     """
     input: RICF scores, bi values. 
     output: Weighted RICF scores.
