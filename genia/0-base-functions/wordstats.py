@@ -241,10 +241,16 @@ def get_RICF(thetas, n, icf):
     observed_ICF = icf
     return expected_ICF - observed_ICF
 
-def get_wRICF(ricf, Bi):
+def get_wRICF(ricf, bi):
     """
     input: RICF scores, bi values. 
     output: Weighted RICF scores.
     """
-    wricf = 0
+    m = len(ricf.A[0])
+    wricf = []
+    bi_counts = np.unique(bi.A[0], return_counts=True)
+    nbi = dict(zip(bi_counts[0], bi_counts[1]))
+    for i in range(m):
+        wricf.append(ricf.A[0][i] / nbi[bi.A[0][i]])
+
     return wricf
