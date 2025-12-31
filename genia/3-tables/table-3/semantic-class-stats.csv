@@ -1,6 +1,6 @@
-Semantic class,Sub-class,Unique terms,Annotations
-amino_acid,15,10155,42478
-nucleotide,12,5574,11619
-multi_cell,5,1444,5247
-cell,4,4051,11626
-other,1,10560,19999
+Semantic class,Sub-class,Unique terms,Annotations,Singletons
+amino_acid,15,10155,42478,6571
+nucleotide,12,5574,11619,4115
+multi_cell,5,1444,5247,961
+cell,4,4051,11626,2956
+other,1,10560,19999,8071
