@@ -17,7 +17,7 @@ library(scales) # for custom colors
 
 # Set directory relative paths
 data_dir <- file.path(here(), "genia/1-preprocessing")
-output_dir <-file.path(here(), "genia/2-figures/figure-1")
+output_dir <-file.path(here(), "genia/3-figures/figure-1")
 
 # Set random seed
 set.seed(86472)

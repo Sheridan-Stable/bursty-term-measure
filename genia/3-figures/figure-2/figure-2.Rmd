@@ -15,8 +15,8 @@ library(patchwork) # for combining plots
 library(scales) # for custom colors
 
 # Set directory relative paths
-data_dir <- file.path(here(), "genia/3-tables")
-output_dir <-file.path(here(), "genia/2-figures/figure-2")
+data_dir <- file.path(here(), "genia/2-tables")
+output_dir <-file.path(here(), "genia/3-figures/figure-2")
 
 # Set random seed
 set.seed(998510)
