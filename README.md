@@ -1,6 +1,6 @@
 # A Heuristic Approach to Term Dispersion Quantification with Applications to Domain-Specific Terminology Extraction
 
-This repository contains computer code for reproducing the results described in the manuscript “A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction”.
+This repository contains computer code for reproducing the results described in the manuscript “A Heuristic Approach to Term Dispersion Quantification with Applications to Domain-Specific Terminology Extraction” (currently under review with Natural Language Processing - Cambrige University Press).
 
 ## Getting Started
 
