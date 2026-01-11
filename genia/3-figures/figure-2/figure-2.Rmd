@@ -1,0 +1,147 @@
+---
+title: "Reproduce Figure 2 as it Appears in the Manuscript"
+author: "Samuel Sarria Hurtado and Paul Sheridan"
+output: html_notebook
+---
+
+```{r, include = FALSE}
+# Delete all variables initialized in R session, if any
+rm(list = ls())
+
+# Load libraries
+library(tidyverse)
+library(here) # for working with file paths
+library(patchwork) # for combining plots
+library(scales) # for custom colors
+
+# Set directory relative paths
+data_dir <- file.path(here(), "genia/2-tables")
+output_dir <-file.path(here(), "genia/3-figures/figure-2")
+
+# Set random seed
+set.seed(998510)
+
+# Define custom colors
+gg_color_hue = function(n, alpha = 1) {
+  hues <- seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100, alpha = alpha)[1 : n]
+}
+cols <- c("grey25", gg_color_hue(n = 3))
+tcols <- c("grey25", gg_color_hue(n = 3, alpha = 0.5))
+gray25 <- cols[1]; red <- cols[2]; green <- cols[3]; blue <- cols[4]
+tred <- cols[2]; tgreen <- tcols[3]; tblue <- tcols[4]
+
+# Custom color scheme
+hex <- hue_pal()(3)
+gg_red <- hex[1] # ggplot default red
+gg_green <- hex[2] # ggplot default green
+gg_blue <- hex[3] # ggplot default blue
+```
+
+
+# Read and Prepare Data
+
+Read in an process the GENIA Term corpus term dispersion scores, as calculated by all the different methods.
+
+```{r}
+# Load and prepare data
+infile <- file.path(data_dir, "term-dispersion-scores.tsv")
+data <- read_tsv(infile) |>
+  mutate(class = replace_na(class, "none")) |>
+  filter(ni > 1) |> # drop singletons
+  select(-c("term", "sem", "bi")) |>
+  select(-1)
+
+# Print to console
+data
+```
+
+
+# Create Plot
+
+Generate the six individual scatterplots. Then combine and write to PDF.
+
+```{r}
+# IDF vs. RICF
+mydata <- data |>
+  select(c("class", "ni", "IDF", "RICF")) |>
+  distinct(IDF, RICF, .keep_all = TRUE)
+  
+p1 <- ggplot(mydata, aes(x = IDF, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "IDF",
+       y = "RICF") +
+  theme_minimal()
+
+# ICF vs. RICF
+mydata <- data |>
+  select(c("class", "ni", "ICF", "RICF")) |>
+  distinct(ICF, RICF, .keep_all = TRUE)
+  
+p2 <- ggplot(mydata, aes(x = ICF, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "ICF",
+       y = "RICF") +
+  theme_minimal()
+
+# Chi-sq vs. RICF
+mydata <- data |>
+  select(c("class", "ni", `Chi-sq`, "RICF")) |>
+  distinct(`Chi-sq`, RICF, .keep_all = TRUE)
+  
+p3 <- ggplot(mydata, aes(x = `Chi-sq`, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "Chi-sq",
+       y = "RICF") +
+  theme_minimal()
+
+# CG vs. RICF
+mydata <- data |>
+  select(c("class", "ni", "CG", "RICF")) |>
+  distinct(CG, RICF, .keep_all = TRUE)
+  
+p4 <- ggplot(mydata, aes(x = CG, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "CG",
+       y = "RICF") +
+  theme_minimal()
+
+# ICB vs. RICF
+mydata <- data |>
+  select(c("class", "ni", "ICB", "RICF")) |>
+  distinct(ICB, RICF, .keep_all = TRUE)
+  
+p5 <- ggplot(mydata, aes(x = ICB, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "ICB",
+       y = "RICF") +
+  theme_minimal()
+
+# DoP vs. RICF
+mydata <- data |>
+  select(c("class", "ni", "DoP", "RICF")) |>
+  distinct(DoP, RICF, .keep_all = TRUE)
+  
+p6 <- ggplot(mydata, aes(x = DoP, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "DoP",
+       y = "RICF") +
+  theme_minimal()
+
+# Combine scatterplots and write to PDF
+plot <- (p1 | p2 | p3) / (p4 | p5 | p6)
+width <- 10
+height <- (9/16) * width
+ggsave("figure-2.pdf", plot = plot, width = width, height = height, units = "in")
+```
+
+
+
+
+
