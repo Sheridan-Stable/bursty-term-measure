@@ -12,7 +12,7 @@ and `cd` into the repository root folder `bursty-term-measure`.
 
 ## Running Repository Code
 
-Repository code is written in Python 3.11 in a Jupyter Notebook environment. While there are multiple ways to run a repository Jupyter Notebook, here is one way to do it:
+Repository code is written primarily in Python 3.11 in a Jupyter Notebook environment. While there are multiple ways to run a repository Jupyter Notebook, here is one way to do it:
 
 From the command line, create a virtual environment:
 ```
@@ -35,7 +35,7 @@ once you are done.
 
 ## Data
 
-### GENIA Term Coprus Data
+### GENIA Term Coprus
 
 We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA Project homepage ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). The extracted `GENIAcorpus3.02.xml` XML file is located in the `genia/0-raw-data` folder.
 
@@ -56,6 +56,10 @@ We compiled a list of 989 English stopwords by pooling stopwords from
 - MyISAM (543 stopwords, [download page](https://dev.mysql.com/doc/refman/8.0/en/fulltext-stopwords.html "12.9.4 Full-Text Stopwords: Stopwords for MyISAM Search Indexes")) stored locally at `genia/0-raw-data/myisam-stopwords.txt` 
 
 The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in an exploratory analysis described below. No preprocessing is required.
+
+## Toy Example
+
+To reproduce the toy example results of Table 4, run the `toy-example/toy-example-table.ipynb` notebook.
 
 ## GENIA Term Coprus Numerical Experiment Tables
 
