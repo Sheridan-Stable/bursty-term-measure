@@ -1,6 +1,6 @@
-# A Heuristic Approach to Term Dispersion Quantification with Applications to Domain-specific Terminology Extraction
+# A Heuristic Approach to Term Dispersion Quantification with Applications to Domain-Specific Terminology Extraction
 
-This repository contains computer code for reproducing the results described in the manuscript “A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction”. ArXiv preprint link: https://arxiv.org/abs/2310.15790
+This repository contains computer code for reproducing the results described in the manuscript “A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction”.
 
 ## Getting Started
 
@@ -35,7 +35,7 @@ once you are done.
 
 ## Data
 
-### GENIA Data
+### GENIA Term Coprus Data
 
 We downloaded the GENIA Term corpus version 3.02 file `GENIAcorpus3.02.tgz` from the GENIA Project homepage ([download page](http://www.geniaproject.org/genia-corpus/term-corpus "GENIA Project Homepage")). The extracted `GENIAcorpus3.02.xml` XML file is located in the `genia/0-raw-data` folder.
 
@@ -57,31 +57,41 @@ We compiled a list of 989 English stopwords by pooling stopwords from
 
 The subset of 417 (out of 989) stopwords occurring in the GENIA data is used in an exploratory analysis described below. No preprocessing is required.
 
-## GENIA Data Numerical Experiments
-
-### IDF vs. ICF Plot
-
-Run the `genia/2-figure/figure-1.ipynb` notebook to generate the plot of Figure 1 from the manuscript.
+## GENIA Term Coprus Numerical Experiment Tables
 
 ### GENIA Term Corpus Summary Statistics
 
-To reproduce the GENIA Term corpus summary statistics of Table 3 from the manuscript, run the relevalnt code blocks in the `genia/3-tables/tables.ipynb` notebook. Data used fof the table is output to the `genia/3-tables/table-3` folder.
+To reproduce the GENIA Term corpus summary statistics of Table 3 from the manuscript, run the relevalnt code blocks in the `genia/2-tables/tables.ipynb` notebook. Data used fof the table is output to the `genia/3-tables/table-3` folder.
 
-### Term Burstiness Score Evaluation
+### Term Dispersion Measure Evaluation
 
-To reproduce performance evaluation results from Table 4 from the manuscript, run the relevalnt code blocks in the `genia/3-tables/tables.ipynb` notebook. This will generate the IDF, ICF, Chi-square test, Church Gale (CG), Irvine and Callison-Burch (ICB), Derivation of Proportions (DoP), Chi-square test, and Residual ICF (RICF) term burstiness scores. Data used for the table is output directly to the `genia/3-tables/table-4` folder.
+To reproduce performance evaluation results from Tables 5-7 and Tables A1-A3 from the manuscript, run the relevalnt code blocks in the `genia/2-tables/tables.ipynb` notebook. This will generate mean P@k, R@k, and F1@k scores together with standard deviations for the IDF, ICF, Chi-square test, Church Gale (CG), Irvine and Callison-Burch (ICB), Derivation of Proportions (DoP), and Residual ICF (RICF) term dispersion measures. Data used for the tables is output directly to the `genia/2-tables/table-x` folders, where `x=5,6,7,a1,a2,a3`.
+
+To reproduce the RBO similarity score results from Tables 8 and 9, run the relevalnt code blocks in the `genia/3-tables/tables.ipynb` notebook. Data used for the tables is output directly to the `genia/2-tables/table-8` and `genia/2-tables/table-9` folders, respectively.
 
 ### Stopwords Exploratory Analysis
 
-Run the relevant code blocks in the `genia/3-tables/tables.ipynb` notebook to reproduce the results of the stopwords analysis in Tables 5 and 6 from the manuscript. Data used for the tables is output directly to the `genia/3-tables/table-5` and `genia/3-tables/table-6` folders, respectively.
+Run the relevant code blocks in the `genia/2-tables/tables.ipynb` notebook to reproduce the results of the stopwords analysis in Tables 10 and 11 from the manuscript. Data used for the tables is output directly to the `genia/2-tables/table-10` and `genia/2-tables/table-11` folders, respectively.
+
+## GENIA Term Coprus Numerical Experiment Figures
+
+Manuscript figures were generated in R. Associated R Notebooks may be run in R Studio.
+
+### IDF vs. ICF Scatterplot
+
+Run the `genia/2-figure/figure-1/figure-1.Rmd` R Markdown notebook to generate the scatterplot of Figure 1 from the manuscript.
+
+### Baseline Measures vs. RICF Scatterplots
+
+Run the `genia/2-figure/figure-2/figure-2.Rmd` R Markdown notebook to generate the scatterplots of Figure 2 from the manuscript.
 
 ## Citation
 If you find anything useful please cite our work using:
 ```
-@misc{SarriaHurtado2024,
+@misc{SarriaHurtado2026,
   author = {Samuel Sarria Hurtado and Paul Sheridan and Todd Mullen and Uyen Lai and Taku Onodera and Gurjit S. Randhawa and Aitazaz A. Farooque},
-  title = {A Statistical Significance Testing Approach for Measuring Term Burstiness with Applications to Domain-Specific Terminology Extraction},
-  year = {2024},
+  title = {A Heuristic Approach to Term Dispersion Quantification with Applications to Domain-Specific Terminology Extraction},
+  year = {2026},
   eprint = {arXiv:XXXX.XXXXX}
 }
 ```
