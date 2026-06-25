@@ -14,24 +14,30 @@ and `cd` into the repository root folder `bursty-term-measure`.
 
 Repository code is written primarily in Python 3.11 in a Jupyter Notebook environment. While there are multiple ways to run a repository Jupyter Notebook, here is one way to do it:
 
-From the command line, create a virtual environment:
+From the command line, create and configure a virtual environment:
 ```
+# 1. Create a virtual environment.
 python3.11 -m venv .
+
+# 2. Activate your virtual environment.
+# On Mac/Linux:
 source bin/activate
+# On Windows:
+venv\Scripts\activate
+
+# 3. Add your environment to Jupyter.
+python -m ipykernel install --user --name=myenv --display-name "Python (myenv)"
+
+# 4. Install required packages.
 pip install -r requirements.txt
-```
 
-Launch a Jupyter Notebook server in your default web browser
-```
+# 5. Launch a Jupyter Notebook server in your default web browser and open a Jupyter Notebook of interest.
 jupyter notebook
-```
-and open a Jupyter Notebook of interest.
 
-Remeber to close down the the virtual environment
-```
+# 6. Close down the the virtual environment once you are done.
 deactivate
 ```
-once you are done.
+
 
 ## Data
 
