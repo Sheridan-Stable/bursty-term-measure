@@ -49,8 +49,7 @@ infile <- file.path(data_dir, "term-dispersion-scores.tsv")
 data <- read_tsv(infile) |>
   mutate(class = replace_na(class, "none")) |>
   filter(ni > 1) |> # drop singletons
-  select(-c("term", "sem", "bi")) |>
-  select(-1)
+  select(-c("term", "sem", "bi"))
 
 # Print to console
 data
@@ -59,7 +58,7 @@ data
 
 # Create Plot
 
-Generate the six individual scatterplots. Then combine and write to PDF.
+Generate the nine individual scatterplots. Then combine and write to PDF.
 
 ```{r}
 # IDF vs. RICF
@@ -134,10 +133,46 @@ p6 <- ggplot(mydata, aes(x = DoP, y = RICF)) +
        y = "RICF") +
   theme_minimal()
 
+# KeyBERT vs. RICF
+mydata <- data |>
+  select(c("class", "ni", "KeyBERT", "RICF")) |>
+  distinct(KeyBERT, RICF, .keep_all = TRUE)
+
+p7 <- ggplot(mydata, aes(x = KeyBERT, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "KeyBERT",
+       y = "RICF") +
+  theme_minimal()
+
+# KeyLLM vs. RICF
+mydata <- data |>
+  select(c("class", "ni", "KeyLLM", "RICF")) |>
+  distinct(KeyLLM, RICF, .keep_all = TRUE)
+
+p8 <- ggplot(mydata, aes(x = KeyLLM, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "KeyLLM",
+       y = "RICF") +
+  theme_minimal()
+
+# RICF vs. RICF
+mydata <- data |>
+  select(c("class", "ni", "RICF")) |>
+  distinct(RICF, .keep_all = TRUE)
+
+p9 <- ggplot(mydata, aes(x = RICF, y = RICF)) +
+  geom_point(size = 0.8) +
+  labs(title = "",
+       x = "RICF",
+       y = "RICF") +
+  theme_minimal()
+
 # Combine scatterplots and write to PDF
-plot <- (p1 | p2 | p3) / (p4 | p5 | p6)
+plot <- (p1 | p2 | p3) / (p4 | p5 | p6) / (p7 | p8 | p9)
 width <- 10
-height <- (9/16) * width
+height <- (12/16) * width
 ggsave("figure-2.pdf", plot = plot, width = width, height = height, units = "in")
 ```
 
