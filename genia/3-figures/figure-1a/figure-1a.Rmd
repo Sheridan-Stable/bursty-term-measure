@@ -17,7 +17,7 @@ library(scales) # for custom colors
 
 # Set directory relative paths
 data_dir <- file.path(here(), "genia/1-preprocessing")
-output_dir <-file.path(here(), "genia/3-figures/figure-1")
+output_dir <-file.path(here(), "genia/3-figures/figure-1a")
 
 # Set random seed
 set.seed(86472)
@@ -157,7 +157,7 @@ outfile <- file.path(output_dir, "figure-1a.pdf")
 pdf(here(outfile), width = 6, height = 6, useDingbats = FALSE)
   plot(x = IDF,
     y = ICF,
-    main = "GENIA Term corpus",
+    main = "GENIA corpus",
     xlab = "IDF",
     ylab = "ICF",
     axes = FALSE,
