@@ -9,7 +9,7 @@ inflect==7.0.0
 bs4==0.0.1
 html5lib==1.1
 lxml==4.9.3
-nltk==3.8.1
+nltk==3.10.0
 notebook==7.2.0
 tqdm==4.66.4
 rbo==0.1.3
