@@ -1,5 +1,5 @@
 ---
-title: "Reproduce Figure 2 as it Appears in the Manuscript"
+title: "Reproduce Figure 3 as it Appears in the Manuscript"
 author: "Samuel Sarria Hurtado and Paul Sheridan"
 output: html_notebook
 ---
@@ -15,11 +15,11 @@ library(patchwork) # for combining plots
 library(scales) # for custom colors
 
 # Set directory relative paths
-data_dir <- file.path(here(), "genia/2-tables/singletons-excluded-analysis")
-output_dir <-file.path(here(), "genia/3-figures/figure-2")
+data_dir <- file.path(here(), "bc5cdr/2-tables/singletons-excluded-analysis")
+output_dir <-file.path(here(), "bc5cdr/3-figures/figure-2")
 
 # Set random seed
-set.seed(998510)
+set.seed(308742)
 
 # Define custom colors
 gg_color_hue = function(n, alpha = 1) {
@@ -41,15 +41,16 @@ gg_blue <- hex[3] # ggplot default blue
 
 # Read and Prepare Data
 
-Read in an process the GENIA Term corpus term dispersion scores, as calculated by all the different methods.
+Read in an process the BC5CDR corpus term dispersion scores, as calculated by all the different methods.
+
 
 ```{r}
 # Load and prepare data
 infile <- file.path(data_dir, "term-dispersion-scores.tsv")
 data <- read_tsv(infile) |>
-  mutate(class = replace_na(class, "none")) |>
+  mutate(sem = replace_na(sem, "none")) |>
   filter(ni > 1) |> # drop singletons
-  select(-c("term", "sem", "bi"))
+  select(-c("term", "bi"))
 
 # Print to console
 data
@@ -63,7 +64,7 @@ Generate the nine individual scatterplots. Then combine and write to PDF.
 ```{r}
 # IDF vs. RICF
 mydata <- data |>
-  select(c("class", "ni", "IDF", "RICF")) |>
+  select(c("sem", "ni", "IDF", "RICF")) |>
   distinct(IDF, RICF, .keep_all = TRUE)
   
 p1 <- ggplot(mydata, aes(x = IDF, y = RICF)) +
@@ -75,7 +76,7 @@ p1 <- ggplot(mydata, aes(x = IDF, y = RICF)) +
 
 # ICF vs. RICF
 mydata <- data |>
-  select(c("class", "ni", "ICF", "RICF")) |>
+  select(c("sem", "ni", "ICF", "RICF")) |>
   distinct(ICF, RICF, .keep_all = TRUE)
   
 p2 <- ggplot(mydata, aes(x = ICF, y = RICF)) +
@@ -87,7 +88,7 @@ p2 <- ggplot(mydata, aes(x = ICF, y = RICF)) +
 
 # Chi-sq vs. RICF
 mydata <- data |>
-  select(c("class", "ni", `Chi-sq`, "RICF")) |>
+  select(c("sem", "ni", `Chi-sq`, "RICF")) |>
   distinct(`Chi-sq`, RICF, .keep_all = TRUE)
   
 p3 <- ggplot(mydata, aes(x = `Chi-sq`, y = RICF)) +
@@ -99,7 +100,7 @@ p3 <- ggplot(mydata, aes(x = `Chi-sq`, y = RICF)) +
 
 # CG vs. RICF
 mydata <- data |>
-  select(c("class", "ni", "CG", "RICF")) |>
+  select(c("sem", "ni", "CG", "RICF")) |>
   distinct(CG, RICF, .keep_all = TRUE)
   
 p4 <- ggplot(mydata, aes(x = CG, y = RICF)) +
@@ -111,7 +112,7 @@ p4 <- ggplot(mydata, aes(x = CG, y = RICF)) +
 
 # ICB vs. RICF
 mydata <- data |>
-  select(c("class", "ni", "ICB", "RICF")) |>
+  select(c("sem", "ni", "ICB", "RICF")) |>
   distinct(ICB, RICF, .keep_all = TRUE)
   
 p5 <- ggplot(mydata, aes(x = ICB, y = RICF)) +
@@ -123,7 +124,7 @@ p5 <- ggplot(mydata, aes(x = ICB, y = RICF)) +
 
 # DoP vs. RICF
 mydata <- data |>
-  select(c("class", "ni", "DoP", "RICF")) |>
+  select(c("sem", "ni", "DoP", "RICF")) |>
   distinct(DoP, RICF, .keep_all = TRUE)
   
 p6 <- ggplot(mydata, aes(x = DoP, y = RICF)) +
@@ -135,7 +136,7 @@ p6 <- ggplot(mydata, aes(x = DoP, y = RICF)) +
 
 # KeyBERT vs. RICF
 mydata <- data |>
-  select(c("class", "ni", "KeyBERT", "RICF")) |>
+  select(c("sem", "ni", "KeyBERT", "RICF")) |>
   distinct(KeyBERT, RICF, .keep_all = TRUE)
 
 p7 <- ggplot(mydata, aes(x = KeyBERT, y = RICF)) +
@@ -147,7 +148,7 @@ p7 <- ggplot(mydata, aes(x = KeyBERT, y = RICF)) +
 
 # KeyLLM vs. RICF
 mydata <- data |>
-  select(c("class", "ni", "KeyLLM", "RICF")) |>
+  select(c("sem", "ni", "KeyLLM", "RICF")) |>
   distinct(KeyLLM, RICF, .keep_all = TRUE)
 
 p8 <- ggplot(mydata, aes(x = KeyLLM, y = RICF)) +
@@ -159,7 +160,7 @@ p8 <- ggplot(mydata, aes(x = KeyLLM, y = RICF)) +
 
 # RICF vs. RICF
 mydata <- data |>
-  select(c("class", "ni", "RICF")) |>
+  select(c("sem", "ni", "RICF")) |>
   distinct(RICF, .keep_all = TRUE)
 
 p9 <- ggplot(mydata, aes(x = RICF, y = RICF)) +
@@ -173,7 +174,7 @@ p9 <- ggplot(mydata, aes(x = RICF, y = RICF)) +
 plot <- (p1 | p2 | p3) / (p4 | p5 | p6) / (p7 | p8 | p9)
 width <- 10
 height <- (12/16) * width
-ggsave("figure-2.pdf", plot = plot, width = width, height = height, units = "in")
+ggsave("figure-3.pdf", plot = plot, width = width, height = height, units = "in")
 ```
 
 

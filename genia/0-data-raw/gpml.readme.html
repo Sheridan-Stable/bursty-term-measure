@@ -1,0 +1,248 @@
+<HTML
+><HEAD
+><TITLE
+>GENIA Resources - Quick Start Manual</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
+REL="NEXT"
+TITLE="Ontology"
+HREF="x11.htm"></HEAD
+><BODY
+CLASS="article"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+><A
+NAME="AEN1"
+>Quick Reference on the Format of GENIA Corpus</A
+></H1
+></DIV
+></DIV
+>
+<h3 class="author"><A
+NAME="AEN4"
+>contact: </A
+><A
+NAME="AEN4" href="mailto:genia@is.s.u-tokyo.ac.jp"
+>genia@is.s.u-tokyo.ac.jp</A
+></h3>
+<DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p>The top element of GENIA corpus is a <B
+>set</B
+> containing&nbsp;articles.</p>
+<DIV
+CLASS="section"
+><DIV
+CLASS="section"
+><DIV
+CLASS="example"
+>
+            <p class="programlisting"><font color="#666666">&lt;?xml version=&quot;1.0&quot;?&gt;<br>
+&lt;!DOCTYPE set<br>
+&nbsp; &nbsp; SYSTEM &quot;gpml.dtd&quot;&gt;<br>
+            </font><B
+><font color="#666666">&lt;set&gt;<br>
+            </font></B
+><font color="#666666">&lt;article&gt;
+...
+&lt;/article&gt;<br>
+&lt;article&gt;
+...
+&lt;/article&gt;<br>
+...<br></font><B
+><font color="#666666">&lt;/set&gt;</font></B
+></p>
+</DIV
+>
+
+</DIV
+></DIV
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p>Each<B
+> article</B
+> in GENIA corpus has its MEDLINE ID, title and abstract in that order.</p>
+<DIV
+CLASS="section"
+><DIV
+CLASS="section"
+><DIV
+CLASS="example"
+>
+            <p class="programlisting"><font color="#666666">&lt;article&gt;<br>
+            </font><B
+><font color="#666666">&lt;articleinfo&gt;<br>
+&lt;bibliomisc&gt;</font></B
+><font color="#666666">MEDLIN:82055447</font><B
+><font color="#666666">&lt;/bibliomisc&gt;<br>
+&lt;/articleinfo&gt;<br></font></B
+><font color="#666666">
+            </font><B
+><font color="#666666">&lt;title&gt;</font></B
+><font color="#666666">...</font><B
+><font color="#666666">&lt;/title&gt;<br>
+&lt;abstract&gt;
+            </font></B
+><font color="#666666">...
+            </font><B
+><font color="#666666">&lt;/abstract&gt;<br></font></B
+><font color="#666666">
+&lt;/article&gt;</font></p>
+</DIV
+>
+
+</DIV
+></DIV
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p>All the texts in the titles and the abstracts are segmented into <B
+>sentence</B
+>s.</p>
+<DIV
+CLASS="section"
+><DIV
+CLASS="section"
+><DIV
+CLASS="example"
+>
+            <p class="programlisting"><font color="#666666">&lt;abstract&gt;<br>
+            </font><B
+><font color="#666666">&lt;sentence&gt;</font></B
+><font color="#666666">We have developed a whole cell binding assay with [3H]dexamethasone as the ligand for the measurement of the glucocorticoid receptor (GR) content of normal and malignant human leukocytes.</font><B
+><font color="#666666">&lt;/sentence&gt;<br>
+            </font></B
+><font color="#666666">...<br>
+            </font><B
+><font color="#666666">&lt;sentence&gt;</font></B
+><font color="#666666">No obvious correlation was found between the GR content and the phenotype of the cell line nor between the GR content and the in vitro growth inhibition by glucocorticoids.</font><B
+><font color="#666666">&lt;/sentence&gt;<br>
+            </font></B
+><font color="#666666">&lt;/abstract&gt;
+            </font></p>
+</DIV
+>
+</DIV
+></DIV
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p>Linguistically meaningful (from the  biological perspective) parts of 
+text in the sentences and titles are marked-up as <B
+>cons</B
+> (in the meaning of <i>constituent</i>) elements that have semantic descriptions 
+as the value of <B
+>sem</B
+> attribute.</p>
+<DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p>A semantic description can be a direct specification to a concept predefined 
+in one of known ontologies.</p>
+<p><B
+><font color="#666666">&lt;cons sem=&quot;G#other_name&quot;&gt;</font></B
+><font color="#666666">IL-2 gene expression</font><B
+><font color="#666666">&lt;/cons&gt;</font></B
+><font color="#666666"> and </font><B
+><font color="#666666">&lt;cons sem=&quot;G#other_name&quot;&gt;&lt;cons sem=&quot;G#protein_molecule&quot;&gt;</font></B
+><font color="#666666">NF-kappa B</font><B
+><font color="#666666">&lt;/cons&gt;</font></B
+><font color="#666666"> activation</font><B
+><font color="#666666">&lt;/cons&gt;</font></B
+><font color="#666666"> through ...</font></p>
+<DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p>Here, the known ontologies are the ones that have been introduced in the 
+corpus in the&nbsp;following way:</p>
+<p><font color="#666666">&lt;set&gt;<br></font><B
+><font color="#666666">&lt;import resource=&quot;GENIAontology.daml&quot; prefix=&quot;G&quot;&gt;</font></B
+><font color="#666666"><br>...<br>&lt;/set&gt;</font></p>
+<DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p>Or it can be a predicate-arguments structure enclosed in parenthesis to express 
+complex concepts.</p>
+<p><B
+><font color="#666666">&lt;cons sem=&quot;(AND G#protein_molecule G#protein_molecule)&quot;&gt;</font></B
+><font color="#666666">&lt;cons&gt;CD2&lt;/cons&gt; and &lt;cons&gt;CD25&lt;/cons&gt; 
+&lt;cons&gt;receptors&lt;/cons&gt;</font><B
+><font color="#666666">&lt;/cons&gt;</font></B
+></p>
+<DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p>Some <B
+>cons</B
+> elements don't have <B
+>sem</B
+> attribute in the case that the textual parts cannot be identified with any 
+entries from known ontologies.</p>
+<p><font color="#666666">&lt;cons sem=&quot;(AND G#protein_molecule G#protein_molecule)&quot;&gt;</font><B
+><font color="#666666">&lt;cons&gt;</font></B
+><font color="#666666">CD2</font><B
+><font color="#666666">&lt;/cons&gt;</font></B
+><font color="#666666"> and </font><B
+><font color="#666666">&lt;cons&gt;</font></B
+><font color="#666666">CD25</font><B
+><font color="#666666">&lt;/cons&gt; &lt;cons&gt;</font></B
+><font color="#666666">receptors</font><B
+><font color="#666666">&lt;/cons&gt;</font></B
+><font color="#666666">&lt;/cons&gt;</font></p>
+<DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><HR></DIV
+></DIV
+>
+<p class="pubdate"><i>written by Jin-Dong Kim (<a href="mailto:mail@jdkim.net">mail@jdkim.net</a>), 
+ April 3, 2003</i></p>
+</BODY
+></HTML
+>

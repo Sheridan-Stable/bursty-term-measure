@@ -1,0 +1,60 @@
+bibliomisc {
+        margin-top: 2%;
+	display: block;
+	text-align: center;
+	background: #dddddd;
+}
+
+title {
+	display: block;
+	text-align: center;
+        font-size: medium;
+        font-weight: bold;
+	color: #cc0000;
+}
+
+
+cons					{ background: #FFcc99; }
+cons[sem="G#other_name"]		{ background: #FFcccc; }
+
+cons[sem="G#amino_acid_monomer"]	{ background: #ccffff; }
+cons[sem="G#peptide"]			{ background: #ccffff; }
+cons[sem="G#protein_N/A"]		{ background: #ccffff; }
+cons[sem="G#protein_complex"]		{ background: #ccffff; }
+cons[sem="G#protein_domain_or_region"]	{ background: #ccffff; }
+cons[sem="G#protein_family_or_group"]	{ background: #ccffff; }
+cons[sem="G#protein_molecule"]		{ background: #ccffff; }
+cons[sem="G#protein_substructure"]	{ background: #ccffff; }
+cons[sem="G#protein_subunit"]		{ background: #ccffff; }
+
+cons[sem="G#nucleotide"]		{ background: #99ffff; }
+cons[sem="G#polynucleotide"]		{ background: #99ffff; }
+cons[sem="G#DNA_N/A"]			{ background: #99ffff; }
+cons[sem="G#DNA_domain_or_region"]	{ background: #99ffff; }
+cons[sem="G#DNA_family_or_group"]	{ background: #99ffff; }
+cons[sem="G#DNA_molecule"]		{ background: #99ffff; }
+cons[sem="G#DNA_substructure"]		{ background: #99ffff; }
+cons[sem="G#RNA_N/A"]			{ background: #99ffff; }
+cons[sem="G#RNA_domain_or_region"]	{ background: #99ffff; }
+cons[sem="G#RNA_family_or_group"]	{ background: #99ffff; }
+cons[sem="G#RNA_molecule"]		{ background: #99ffff; }
+cons[sem="G#RNA_substructure"]		{ background: #99ffff; }
+
+cons[sem="G#other_organic_compound"]	{ background: #ccffff; }
+cons[sem="G#organic"]			{ background: #ccffff; }
+cons[sem="G#inorganic"]			{ background: #ccffff; }
+cons[sem="G#atom"]			{ background: #ccffff; }
+cons[sem="G#carbohydrate"]		{ background: #ccffff; }
+cons[sem="G#lipid"]			{ background: #ccffff; }
+
+cons[sem="G#virus"]			{ background: #ffff99; }
+cons[sem="G#mono_cell"]			{ background: #ffff99; }
+cons[sem="G#multi_cell"]		{ background: #ffff99; }
+cons[sem="G#body_part"]			{ background: #ffff99; }
+cons[sem="G#tissue"]			{ background: #ffff99; }
+
+cons[sem="G#cell_type"]			{ background: #ccff99; }
+cons[sem="G#cell_component"]		{ background: #ccff99; }
+cons[sem="G#cell_line"]			{ background: #ccff99; }
+cons[sem="G#other_artificial_source"]	{ background: #ccff99; }
+

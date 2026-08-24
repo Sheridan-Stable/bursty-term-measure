@@ -1,0 +1,184 @@
+---
+title: "Reproduce Figure 1a as it Appears in the Manuscript"
+author: "Samuel Sarria Hurtado and Paul Sheridan"
+output: html_notebook
+---
+
+```{r, include = FALSE}
+# Delete all variables initialized in R session, if any
+rm(list = ls())
+
+# Load libraries
+library(dplyr)
+library(here) # for working with file paths
+library(rjson) # for reading JSON files
+library(magicaxis) # for prettying up plot
+library(scales) # for custom colors
+
+# Set directory relative paths
+data_dir <- file.path(here(), "genia/1-preprocessing")
+output_dir <-file.path(here(), "genia/3-figures/figure-1a")
+
+# Set random seed
+set.seed(86472)
+
+# Define custom colors
+hex <- hue_pal()(3)
+gg_red <- hex[1] # ggplot default red
+gg_green <- hex[2] # ggplot default green
+gg_blue <- hex[3] # ggplot default blue
+```
+
+
+# Overview
+
+The code in this R Markdown file reproduces the plot of Figure 1a from the manuscript "A heuristic approach to term dispersion quantification with applications to domain-specific terminology extraction" by Sarria Hurtado et al. (2026).
+
+
+# Read and Preprocess the Data
+
+Read GENIA Term corpus and preprocess the documents therein for downstream analysis.
+
+```{r}
+# Read data
+infile <- file.path(data_dir, "GENIAcorpus3.02-preprocessed.json")
+raw_doc_strings <- fromJSON(paste(readLines(here(infile)), collapse = ""))
+
+# Convert raw doc strings to tokens
+d <- length(raw_doc_strings)
+raw_docs <- vector("list", length = d)
+
+for (j in 1 : d) {
+  raw_docs[[j]] <- strsplit(raw_doc_strings[[j]], split = " +")[[1]]
+}
+```
+
+
+# Word Statistics
+
+Collect basic word statistics used to generate the plot.
+
+```{r}
+# Calculate basic stats
+d <- length(raw_docs)
+nij <- vector("list", length = d)
+doc <- vector("list", length = d)
+all_terms_table <- table(unlist(raw_docs))
+all_terms <- names(all_terms_table)
+all_term_counts <- as.numeric(all_terms_table)
+
+for (j in 1 : d) {
+  mydoc <- raw_docs[[j]]
+  mytable <- sort(table(mydoc), decreasing = T)
+  nij[[j]] <- as.numeric(mytable)
+  doc[[j]] <- names(mytable)
+}
+
+nj <- unlist(lapply(nij, sum))
+bj <- unlist(lapply(nij, length))
+term <- unique(unlist(doc))
+m <- length(term)
+n <- sum(unlist(nij))
+ni <- table(unlist(raw_docs))[term]
+bi <- table(unlist(doc))[term]
+DP <- as.numeric(bi / d)
+CP <- as.numeric(ni / n)
+IDF <- as.numeric(log(d / bi))
+ICF <- as.numeric(log(n / ni))
+```
+
+
+
+# Calculate Expected Relations
+
+Calculate the expected relations of Eqs. (1) and (2).
+
+```{r}
+# Calculate expected relations
+A <- min(CP)
+B <- 0.07
+theta_theoretical <- exp(seq(from = log(A), to = log(B), by = 1 / 100))
+no_of_theta_theoretical_values <- length(theta_theoretical)
+EDP <- numeric(no_of_theta_theoretical_values)
+ECP <- numeric(no_of_theta_theoretical_values)
+for (i in 1 : no_of_theta_theoretical_values) {
+  ECP[i] <- theta_theoretical[i]
+  EDP[i] <- 1
+  for (j in 1 : d) {
+    EDP[i] <- EDP[i] - (1 / d) * (1 - theta_theoretical[i]) ^ nj[j]
+  }
+}
+
+EICF <- (1 - theta_theoretical) / (2 * n * theta_theoretical) - log(theta_theoretical)
+
+EIDF <- numeric(no_of_theta_theoretical_values)
+for (i in 1 : no_of_theta_theoretical_values) {
+  C0 <- 0
+  for (j in 1 : d) {
+    C0 <- C0 + (1 - theta_theoretical[i]) ^ nj[j] - (1 - theta_theoretical[i]) ^ (2 * nj[j])
+  }
+  EIDF[i] <- C0 / (2 * d ^ 2 * EDP[i] ^ 2) - log(EDP[i])
+}
+
+IDF_runner <- log(d / seq(max(bi), 1))
+ICF_upper_bound <- as.numeric(log(n / seq(max(bi), 1)))
+```
+
+
+
+
+# Generate Scatterplot
+
+Estimate slope and intercept for the asymptotic relation of Eq. (2).
+
+```{r}
+# Calculate parameters for plotting asymptotic relation
+lm_fit <- lm(ICF_upper_bound ~ IDF_runner)
+intercept <- coef(lm_fit)[1]
+slope <- coef(lm_fit)[2]
+```
+
+
+Deduplicate points for plotting.
+
+```{r}
+# Deduplicate
+mydata <- data.frame(IDF = IDF, ICF = ICF) |> distinct()
+IDF <- mydata$IDF
+ICF <- mydata$ICF
+```
+
+
+Generate the scatterplot and save to PDF.
+
+```{r}
+# Plot
+outfile <- file.path(output_dir, "figure-1a.pdf")
+pdf(here(outfile), width = 6, height = 6, useDingbats = FALSE)
+  plot(x = IDF,
+    y = ICF,
+    main = "GENIA corpus",
+    xlab = "IDF",
+    ylab = "ICF",
+    axes = FALSE,
+    type = "n")
+  grid(lwd = 2)
+  magaxis()
+  points(x = IDF, y = ICF, pch = 16, cex = 0.75)
+  points(x = EIDF, y = EICF, type = "l", lwd = 3, col = gg_red)
+  abline(a = intercept, b = slope, lty = "dashed", lwd = 3, col = gg_blue)
+  legend("topleft",
+       legend = c("Expected relation of Eq. (1)", "Asymptotic relation of Eq. (2)"),
+       inset = 0.01,
+       col = c(gg_red, gg_blue),
+       lty = c(1, 2),
+       cex = 0.8,
+       lwd = 3,
+       seg.len = 3,
+       bty = "n")
+dev.off()
+```
+
+
+
+
